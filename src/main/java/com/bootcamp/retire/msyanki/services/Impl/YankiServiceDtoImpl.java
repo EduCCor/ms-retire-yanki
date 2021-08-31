@@ -40,6 +40,9 @@ public class YankiServiceDtoImpl implements IYankiServiceDto {
 
         YankiDocumentDto yankiDocumentDto = YankiDocumentDto.builder()
                 .id(yankiDocument.getId())
+                .email(yankiDocument.getEmail())
+                .nroPhone(yankiDocument.getNroPhone())
+                .imeiPhone(yankiDocument.getImeiPhone())
                 .amountYanki(yankiDocument.getAmountYanki())
                 .build();
 

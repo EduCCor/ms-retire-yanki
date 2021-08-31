@@ -15,6 +15,8 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routes(RetireHandler handler){
         return route(GET("/api/retire-yanki"), handler::findAll).
+                andRoute(GET("/api/retire-yanki/{id}"), handler::findById).
+                andRoute(GET("/api/retire-yanki/number/{customerIdentityNumber}"), handler::findByCustomerIdentityNumber).
                 andRoute(POST("/api/retire-yanki"), handler::createRetireYanki);
     }
 }

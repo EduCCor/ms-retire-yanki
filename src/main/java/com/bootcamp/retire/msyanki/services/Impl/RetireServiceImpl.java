@@ -42,17 +42,17 @@ public class RetireServiceImpl implements IRetireService {
 
     @Override
     public Mono<Retire> findById(String s) {
-        return null;
+        return retireRepository.findById(s);
     }
 
     @Override
     public Mono<Retire> update(Retire o) {
-        return null;
+        return retireRepository.save(o);
     }
 
     @Override
     public Mono<Void> delete(Retire o) {
-        return null;
+        return retireRepository.delete(o);
     }
 
     @Override
@@ -78,11 +78,18 @@ public class RetireServiceImpl implements IRetireService {
 
             return transactionService.saveTransactionYanki(transactionYankiDto).flatMap(d -> {
                 c.setAmountYanki(c.getAmountYanki() - retire.getAmount());
+                retire.setNroPhone(c.getNroPhone());
                 return yankiServiceDto.updateYanki(c).flatMap(e -> {
                     return retireRepository.save(retire);
                 });
             });
+        });
+    }
 
+    @Override
+    public Flux<Retire> findByCustomerIdentityNumber(String id) {
+        return retireRepository.findAll().filter(c -> {
+            return c.getCustomerIdentityNumber().equals(id);
         });
     }
 }

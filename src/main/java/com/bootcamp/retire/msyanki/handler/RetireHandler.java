@@ -25,6 +25,19 @@ public class RetireHandler {
                 .body(retireService.findAll(), Retire.class);
     }
 
+    public Mono<ServerResponse> findById(ServerRequest request){
+        String yankiNumber = request.pathVariable("id");
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(retireService.findById(yankiNumber), Retire.class);
+    }
+
+    public Mono<ServerResponse> findByCustomerIdentityNumber(ServerRequest request) {
+        String yankiNumber = request.pathVariable("customerIdentityNumber");
+        log.info("El CustomerAccountNumber es " + yankiNumber);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(retireService.findByCustomerIdentityNumber(yankiNumber), Retire.class);
+    }
+
     public Mono<ServerResponse> createRetireYanki(ServerRequest request){
 
         Mono<Retire> retireMono = request.bodyToMono(Retire.class);
